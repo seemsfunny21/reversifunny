@@ -46,5 +46,7 @@ assert.ok(html.includes('id="board"')&&html.includes('id="pauseOverlay"'));
 assert.ok(app.includes('reversifunny:visibility')&&app.includes('pagehide')&&app.includes('visibilitychange'));
 assert.ok(app.includes('reversifunny.game.v1')&&app.includes('localStorage.setItem'));
 assert.ok(html.includes('app.js?v=1')&&sw.includes('app.js?v=1'));
+assert.ok(html.includes('style.css?v=2')&&sw.includes('style.css?v=2'));
+assert.ok(root('style.css').includes('@media (min-width:960px)'),'Desktop layout must not alter mobile');
 assert.ok(sw.includes('reversifunny-shell-'));
 console.log('PASS Reversi rules, 30 games, forced passes, 3 AI levels, persisted paused game and isolated offline PWA');
