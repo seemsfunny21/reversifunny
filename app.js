@@ -3,16 +3,50 @@
 const E=window.ReversiEngine;
 if(!E)throw Error("Reversi engine unavailable");
 const GAME_KEY="reversifunny.game.v1",SETTINGS_KEY="reversifunny.settings.v1";
+const STATS_KEY="reversifunny.stats.v1";
 const $=id=>document.getElementById(id);
 const defaults={mode:"cpu",difficulty:"medium",showHints:true};
 const MODES=["cpu","local"],LEVELS=["easy","medium","hard"];
 function getStored(key){try{return JSON.parse(localStorage.getItem(key)||"null")}catch{return null}}
-let saveOK=true;
+let saveOK=true,statsSaveFailed=false;
 function store(key,value){try{localStorage.setItem(key,JSON.stringify(value));saveOK=true;return true}catch{saveOK=false;return false}}
 function validSettings(v){
  return {mode:MODES.includes(v?.mode)?v.mode:"cpu",difficulty:LEVELS.includes(v?.difficulty)?v.difficulty:"medium",showHints:typeof v?.showHints==="boolean"?v.showHints:true};
 }
 let settings=validSettings(getStored(SETTINGS_KEY));
+function safeCounter(n){return Number.isSafeInteger(n)&&n>=0&&n<=999999999?n:0}
+function readStats(){
+ const s=getStored(STATS_KEY);
+ return {
+  cpu:{wins:safeCounter(s?.cpu?.wins),losses:safeCounter(s?.cpu?.losses),
+   draws:safeCounter(s?.cpu?.draws)},
+  local:{blackWins:safeCounter(s?.local?.blackWins),
+   whiteWins:safeCounter(s?.local?.whiteWins),draws:safeCounter(s?.local?.draws)}
+ };
+}
+let stats=readStats();
+function updateStatsView(){
+ $("cpuWins").textContent=String(stats.cpu.wins);
+ $("cpuLosses").textContent=String(stats.cpu.losses);
+ $("cpuDraws").textContent=String(stats.cpu.draws);
+ $("localBlackWins").textContent=String(stats.local.blackWins);
+ $("localWhiteWins").textContent=String(stats.local.whiteWins);
+ $("localDraws").textContent=String(stats.local.draws);
+}
+function addResult(group,field){
+ if(stats[group][field]>=999999999)return;
+ stats[group][field]++;
+ statsSaveFailed=!store(STATS_KEY,stats);
+ updateStatsView();
+}
+function recordFinishedGame(){
+ const sc=E.score(state.board);
+ if(state.mode==="cpu"){
+  addResult("cpu",sc.black===sc.white?"draws":sc.black>sc.white?"wins":"losses");
+ }else{
+  addResult("local",sc.black===sc.white?"draws":sc.black>sc.white?"blackWins":"whiteWins");
+ }
+}
 function cleanHistory(h){
  if(!Array.isArray(h))return [];
  return h.filter(x=>E.valid(x?.board)&&[1,2].includes(x?.turn)&&typeof x.over==="boolean").slice(-120)
@@ -43,8 +77,8 @@ function formatted(ms){
 }
 function save(){
  store(GAME_KEY,{...state,elapsedMs:elapsed()});
- const notice=$("saveNote");notice.hidden=saveOK;
- if(!saveOK)notice.textContent="⚠️ Η αποθήκευση απέτυχε. Μην κλείσεις την εφαρμογή πριν ελευθερώσεις χώρο.";
+ const notice=$("saveNote");notice.hidden=saveOK&&!statsSaveFailed;
+ if(!saveOK||statsSaveFailed)notice.textContent="⚠️ Η αποθήκευση παιχνιδιού ή στατιστικών απέτυχε. Ελευθέρωσε χώρο πριν κλείσεις την εφαρμογή.";
 }
 function toast(message){
  const t=$("toast");t.textContent=message;t.hidden=false;
@@ -136,7 +170,7 @@ function play(index,byAI){
  state.over=info.over;state.pass=info.pass;state.turn=info.turn||state.turn;
  if(info.over){
   state.elapsedMs=elapsed();runStarted=null;state.paused=true;
-  stopAI();toast(winner());
+  stopAI();recordFinishedGame();toast(winner());
  }else if(info.pass)toast((info.pass===1?"Τα μαύρα":"Τα λευκά")+" δεν έχουν διαθέσιμη κίνηση.");
  save();render();scheduleAI();
  return true;
@@ -163,6 +197,9 @@ function undo(){
 }
 function freshGame(){
  if(!state.over&&!window.confirm("Να ξεκινήσει νέα παρτίδα; Η τρέχουσα θα αντικατασταθεί."))return;
+ // Replacing a started CPU match is a forfeit. Pausing never changes stats.
+ // A local two-player match has no individual loser when simply discarded.
+ if(!state.over&&state.mode==="cpu"&&state.history.length>0)addResult("cpu","losses");
  stopAI();state=newState();runStarted=null;save();render();
  toast("Νέα παρτίδα — πρώτα παίζουν τα μαύρα.");
 }
@@ -194,7 +231,7 @@ async function toggleFullscreen(){
  }
  refreshFullscreenButton();
 }
-makeBoard();render();save();
+makeBoard();updateStatsView();render();save();
 $("pauseButton").addEventListener("click",()=>state.paused?resume():pauseGame());
 $("resumeButton").addEventListener("click",()=>state.over?freshGame():resume());
 $("newButton").addEventListener("click",()=>{pauseGame();freshGame()});
@@ -225,6 +262,7 @@ window.addEventListener("message",event=>{
  if(!appActive)pauseGame();
 });
 window.addEventListener("storage",event=>{
+ if(event.key===STATS_KEY){stats=readStats();statsSaveFailed=false;updateStatsView();return}
  if(event.key!==GAME_KEY||!event.newValue)return;
  const latest=readGame();if(!latest)return;
  stopAI();runStarted=null;state=latest;render();
