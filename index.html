@@ -55,6 +55,22 @@
 <dialog id="settingsDialog" aria-labelledby="settingsTitle">
  <form id="settingsForm" method="dialog">
   <div class="dialog-heading"><h2 id="settingsTitle">Ρυθμίσεις</h2><button id="closeSettings" type="button" class="close-btn" aria-label="Κλείσιμο">✕</button></div>
+  <section class="stats-panel" aria-labelledby="statsHeading">
+   <h3 id="statsHeading">Στατιστικά Reversi</h3>
+   <p class="stats-section-label">Εναντίον υπολογιστή (παίζεις με μαύρα)</p>
+   <div class="stats-grid stats-triple">
+    <div class="stats-tile"><span>Νίκες</span><strong id="cpuWins">0</strong></div>
+    <div class="stats-tile"><span>Ήττες</span><strong id="cpuLosses">0</strong></div>
+    <div class="stats-tile"><span>Ισοπαλίες</span><strong id="cpuDraws">0</strong></div>
+   </div>
+   <p class="stats-section-label">Δύο παίκτες στην ίδια συσκευή</p>
+   <div class="stats-grid stats-triple">
+    <div class="stats-tile"><span>Μαύρα</span><strong id="localBlackWins">0</strong></div>
+    <div class="stats-tile"><span>Λευκά</span><strong id="localWhiteWins">0</strong></div>
+    <div class="stats-tile"><span>Ισοπαλίες</span><strong id="localDraws">0</strong></div>
+   </div>
+   <p class="stats-detail">Οι παρτίδες σε παύση δεν επηρεάζουν τα αποτελέσματα.</p>
+  </section>
   <fieldset>
    <legend>Αντίπαλος για νέα παρτίδα</legend>
    <label><input type="radio" name="mode" value="cpu"><span>Υπολογιστής</span></label>
