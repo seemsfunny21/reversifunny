@@ -10,10 +10,10 @@
 <meta name="apple-mobile-web-app-title" content="ReversiFunny">
 <link rel="icon" type="image/svg+xml" href="./icon.svg">
 <link rel="manifest" href="./manifest.webmanifest">
-<link rel="stylesheet" href="./style.css?v=3">
+<link rel="stylesheet" href="./style.css?v=4">
 <title>ReversiFunny</title>
 <script src="./engine.js?v=1" defer></script>
-<script src="./app.js?v=1" defer></script>
+<script src="./app.js?v=2" defer></script>
 </head>
 <body>
 <div class="app-shell">
@@ -44,6 +44,9 @@
 <div class="tool-row">
  <button id="undoButton" class="btn tool-btn" type="button"><span aria-hidden="true">↶</span> Αναίρεση</button>
  <button id="newButton" class="btn main-btn" type="button"><span aria-hidden="true">＋</span> Νέα παρτίδα</button>
+</div>
+<div class="fullscreen-row">
+ <button type="button" class="btn fullscreen-btn" id="fullscreenButton" aria-label="Πλήρης οθόνη" aria-pressed="false"><span aria-hidden="true">⛶</span> <span id="fullscreenLabel">Πλήρης οθόνη</span></button>
 </div>
 <p id="hintText" class="hint-text">Τα μαύρα παίζουν πρώτα. Πάτησε μια φωτεινή θέση.</p>
 <p id="saveNote" class="save-note" role="alert" hidden></p>
