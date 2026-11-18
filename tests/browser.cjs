@@ -80,6 +80,32 @@ const {chromium}=require('playwright');
   assert.equal(restored.paused,true);
   console.log('PASS Reversi mobile browser: valid moves, AI, undo full round, app-switch pause, elapsed freeze, settings, 2 players and reload');
   await context.close();
+  const desktop=await browser.newContext({viewport:{width:1366,height:900},
+   locale:'el-GR',timezoneId:'Europe/Athens',serviceWorkers:'allow'});
+  const deskPage=await desktop.newPage();
+  await deskPage.goto(url,{waitUntil:'domcontentloaded'});
+  const deskBoard=await deskPage.locator('.board-wrap').boundingBox();
+  const deskStatus=await deskPage.locator('.status-strip').boundingBox();
+  assert.ok(deskBoard&&deskBoard.width>=570,
+   'Reversi board grows to desktop size: '+JSON.stringify(deskBoard));
+  assert.ok(deskStatus&&deskStatus.x>=deskBoard.x+deskBoard.width+15,
+   'Desktop scoreboard and controls sit beside the board');
+  assert.equal(await deskPage.locator('#board button').count(),64);
+  const deskFit=await deskPage.evaluate(()=>({
+   width:document.documentElement.scrollWidth,viewport:document.documentElement.clientWidth,
+   height:document.documentElement.scrollHeight,viewHeight:document.documentElement.clientHeight
+  }));
+  assert.ok(deskFit.width<=deskFit.viewport+2&&deskFit.height<=deskFit.viewHeight+2,
+   'Desktop Reversi must fit without scrolling: '+JSON.stringify(deskFit));
+  await deskPage.locator('#resumeButton').click();
+  assert.equal(await deskPage.locator('.square.legal').count(),4);
+  await deskPage.locator('#board button').nth(19).click();
+  await deskPage.waitForFunction(()=>{
+   const g=JSON.parse(localStorage.getItem('reversifunny.game.v1'));
+   return g?.history?.length>=2;
+  },null,{timeout:15000});
+  await desktop.close();
+  console.log('PASS Reversi desktop Chromium: expanded board, side score/controls, no overflow, CPU gameplay');
  }finally{
   await browser.close();
   await new Promise(done=>server.close(done));
