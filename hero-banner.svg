@@ -1,0 +1,27 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 900 300" role="img" aria-label="ReversiFunny">
+<defs>
+ <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1"><stop stop-color="#08152c"/><stop offset=".56" stop-color="#123f73"/><stop offset="1" stop-color="#07142b"/></linearGradient>
+ <radialGradient id="shine"><stop stop-color="#3cbeff" stop-opacity=".37"/><stop offset="1" stop-color="#166eff" stop-opacity="0"/></radialGradient>
+ <radialGradient id="white"><stop stop-color="#fff"/><stop offset=".58" stop-color="#d8edff"/><stop offset="1" stop-color="#719bbf"/></radialGradient>
+ <radialGradient id="black"><stop stop-color="#68738a"/><stop offset=".5" stop-color="#172033"/><stop offset="1" stop-color="#05070d"/></radialGradient>
+</defs>
+<rect width="900" height="300" rx="26" fill="url(#bg)"/>
+<ellipse cx="618" cy="146" rx="366" ry="244" fill="url(#shine)"/>
+<path d="M0 260Q325 160 540 237M0 64Q280-2 489 61" stroke="#7ac8ff" stroke-opacity=".23" stroke-width="4" fill="none"/>
+<text x="55" y="138" font-family="Arial,DejaVu Sans,sans-serif" font-size="80" font-weight="800" fill="#f4faff">Reversi</text>
+<text x="55" y="216" font-family="Arial,DejaVu Sans,sans-serif" font-size="80" font-weight="800" fill="#85d5ff">Funny</text>
+<text x="59" y="257" font-family="Arial,DejaVu Sans,sans-serif" font-size="19" letter-spacing="2.5" fill="#d0ebff">ΠΑΙΞΕ · ΑΝΑΤΡΕΨΕ · ΚΕΡΔΙΣΕ</text>
+<g transform="translate(565 30)">
+<rect width="238" height="238" rx="20" fill="#071e39" stroke="#59b6ff" stroke-width="4"/>
+<path d="M0 59.5H238M0 119H238M0 178.5H238M59.5 0V238M119 0V238M178.5 0V238" stroke="#4d88bb" stroke-width="2"/>
+<g stroke="#b8ddff" stroke-width="1.5">
+ <circle cx="89" cy="89" r="24" fill="url(#white)"/>
+ <circle cx="149" cy="89" r="24" fill="url(#black)"/>
+ <circle cx="89" cy="149" r="24" fill="url(#black)"/>
+ <circle cx="149" cy="149" r="24" fill="url(#white)"/>
+ <circle cx="207" cy="149" r="22" fill="url(#black)"/>
+</g>
+<circle cx="147" cy="209" r="10" fill="#6ed7ff" opacity=".8"/>
+</g>
+<circle cx="870" cy="55" r="4" fill="#d8ecff"/><circle cx="834" cy="269" r="6" fill="#6dc3ff"/>
+</svg>
