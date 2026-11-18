@@ -63,18 +63,18 @@ input[type=radio],input[type=checkbox]{accent-color:#3fa8ff;min-width:16px;min-h
 
 /* Desktop board and side controls; the original one-column view stays on mobile. */
 @media (min-width:960px) {
- .app-shell{max-width:1120px;padding:18px 26px 24px}
- .hero{height:112px;margin-bottom:18px}
+ .app-shell{max-width:1300px;padding:10px 18px 12px}
+ .hero{height:clamp(54px,8dvh,76px);margin-bottom:10px}
  .game-panel{
-  max-width:none;display:grid;
-  grid-template-columns:minmax(0,600px) minmax(280px,1fr);
+  max-width:1200px;display:grid;
+  grid-template-columns:minmax(0,1fr) minmax(270px,320px);
   grid-template-rows:repeat(5,min-content);
-  gap:14px 30px;align-items:start;text-align:center
+  gap:12px 24px;align-items:start;text-align:center
  }
  .board-wrap{
   grid-column:1;grid-row:1 / span 5;
-  justify-self:center;align-self:start;left:auto;transform:none;
-  width:min(100%,600px,calc(100dvh - 255px))
+  justify-self:end;align-self:start;left:auto;transform:none;
+  width:min(100%,760px,calc(100dvh - 108px))
  }
  .status-strip{grid-column:2;grid-row:1;margin:0;gap:7px}
  .status-block,.status-action{min-height:66px}
