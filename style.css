@@ -60,3 +60,30 @@ input[type=radio],input[type=checkbox]{accent-color:#3fa8ff;min-width:16px;min-h
 .toast{position:fixed;bottom:calc(15px + env(safe-area-inset-bottom,0px));left:50%;transform:translateX(-50%);z-index:20;max-width:calc(100% - 24px);border:1px solid #7dc4ff;background:#173d67;color:#fff;border-radius:12px;padding:11px 16px;font-size:12px;font-weight:750;box-shadow:0 10px 30px #0008}
 @media(max-width:360px){.app-shell{padding-left:10px;padding-right:10px}.status-strip{gap:5px}.status-caption{font-size:9px}.status-block strong{font-size:14px}.tool-row{gap:7px}}
 @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation:none!important;transition:none!important}}
+
+/* Desktop board and side controls; the original one-column view stays on mobile. */
+@media (min-width:960px) {
+ .app-shell{max-width:1120px;padding:18px 26px 24px}
+ .hero{height:112px;margin-bottom:18px}
+ .game-panel{
+  max-width:none;display:grid;
+  grid-template-columns:minmax(0,600px) minmax(280px,1fr);
+  grid-template-rows:repeat(5,min-content);
+  gap:14px 30px;align-items:start;text-align:center
+ }
+ .board-wrap{
+  grid-column:1;grid-row:1 / span 5;
+  justify-self:center;align-self:start;left:auto;transform:none;
+  width:min(100%,600px,calc(100dvh - 255px))
+ }
+ .status-strip{grid-column:2;grid-row:1;margin:0;gap:7px}
+ .status-block,.status-action{min-height:66px}
+ .status-caption,.status-action{font-size:11px}
+ .status-block strong{font-size:20px}
+ .turn-strip{grid-column:2;grid-row:2;min-height:54px;margin:0;font-size:15px}
+ .turn-dot{width:17px;height:17px}
+ .tool-row{grid-column:2;grid-row:3;margin:0;grid-template-columns:1fr 1.15fr;gap:10px}
+ .tool-row .btn{min-height:60px;font-size:14px}
+ .hint-text{grid-column:2;grid-row:4;min-height:38px;margin:0;font-size:13px}
+ .save-note{grid-column:2;grid-row:5}
+}
