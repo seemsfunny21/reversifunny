@@ -43,10 +43,12 @@ for(let run=0;run<30;run++){
 }
 assert.ok(passes>=1,'Simulated matches exercise the forced pass rule');
 assert.ok(html.includes('id="board"')&&html.includes('id="pauseOverlay"'));
+assert.ok(html.includes('id="cpuWins"')&&html.includes('id="cpuLosses"')&&html.includes('id="localBlackWins"'),'Separate CPU and local player statistics');
+assert.ok(app.includes('reversifunny.stats.v1')&&app.includes('recordFinishedGame()')&&app.includes('addResult("cpu","losses")'),'Terminal results and CPU forfeits recorded');
 assert.ok(app.includes('reversifunny:visibility')&&app.includes('pagehide')&&app.includes('visibilitychange'));
 assert.ok(app.includes('reversifunny.game.v1')&&app.includes('localStorage.setItem'));
-assert.ok(html.includes('app.js?v=2')&&sw.includes('app.js?v=2'));
-assert.ok(html.includes('style.css?v=4')&&sw.includes('style.css?v=4'));
+assert.ok(html.includes('app.js?v=3')&&sw.includes('app.js?v=3'));
+assert.ok(html.includes('style.css?v=5')&&sw.includes('style.css?v=5'));
 assert.ok(root('style.css').includes('@media (min-width:960px)'),'Desktop layout must not alter mobile');
 assert.ok(html.includes('id="fullscreenButton"')&&app.includes('requestFullscreen'),'Native fullscreen button must be wired');
 assert.ok(root('style.css').includes('html:fullscreen .hero{display:none}'),'Full screen hides banner');
