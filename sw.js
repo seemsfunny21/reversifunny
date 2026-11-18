@@ -1,6 +1,6 @@
 /* ReversiFunny isolated cache — never touches other installed game data. */
-const PREFIX="reversifunny-shell-",CACHE=PREFIX+"v2-desktop-layout";
-const FILES=["./","./index.html","./style.css?v=2","./engine.js?v=1",
+const PREFIX="reversifunny-shell-",CACHE=PREFIX+"v3-expanded-desktop-board";
+const FILES=["./","./index.html","./style.css?v=3","./engine.js?v=1",
  "./app.js?v=1","./hero-banner.svg","./icon.svg","./manifest.webmanifest"];
 self.addEventListener("install",event=>
  event.waitUntil(caches.open(CACHE).then(c=>c.addAll(FILES)).then(()=>self.skipWaiting())));
