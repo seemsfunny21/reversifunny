@@ -1,0 +1,20 @@
+{
+  "id": "./",
+  "name": "ReversiFunny — Reversi",
+  "short_name": "ReversiFunny",
+  "description": "Reversi 8×8: παιχνίδι με υπολογιστή ή φίλο, αποθήκευση και παύση.",
+  "start_url": "./",
+  "scope": "./",
+  "display": "standalone",
+  "lang": "el",
+  "background_color": "#071426",
+  "theme_color": "#071426",
+  "icons": [
+    {
+      "src": "./icon.svg",
+      "sizes": "any",
+      "type": "image/svg+xml",
+      "purpose": "any maskable"
+    }
+  ]
+}
