@@ -1,0 +1,22 @@
+name: ReversiFunny regression
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+permissions:
+  contents: read
+jobs:
+  game:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: Verify Reversi engine, 30 complete games and local saves
+        run: node tests/reversi.cjs
+      - name: Install Chromium test harness
+        run: npm install --no-save --ignore-scripts playwright@1.56.1
+      - name: Check real mobile Chromium gameplay
+        run: node tests/browser.cjs
