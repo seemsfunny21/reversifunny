@@ -195,8 +195,8 @@ function undo(){
  state.board=previous.board;state.turn=previous.turn;state.pass=previous.pass;state.over=false;
  save();render();scheduleAI();
 }
-function freshGame(){
- if(!state.over&&!window.confirm("Να ξεκινήσει νέα παρτίδα; Η τρέχουσα θα αντικατασταθεί."))return;
+async function freshGame(){
+ if(!state.over&&!await GameDialog.confirm("Να ξεκινήσει νέα παρτίδα; Η τρέχουσα θα αντικατασταθεί."))return;
  // Replacing a started CPU match is a forfeit. Pausing never changes stats.
  // A local two-player match has no individual loser when simply discarded.
  if(!state.over&&state.mode==="cpu"&&state.history.length>0)addResult("cpu","losses");
