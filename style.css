@@ -121,3 +121,9 @@ input[type=radio],input[type=checkbox]{accent-color:#3fa8ff;min-width:16px;min-h
 
 /* One Undo control on the board; restart lives with the other settings. */
 #settingsForm #newButton{display:block;width:100%;margin:10px 0 7px}
+
+/* A slim desktop header keeps the 960px board in a 768–1080px viewport.
+   The phone banner and all mobile board dimensions are unchanged. */
+@media(min-width:960px){
+ .app-shell>.hero{height:58px!important;min-height:58px!important;max-height:58px!important;margin-bottom:5px!important}
+}
