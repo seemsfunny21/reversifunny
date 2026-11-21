@@ -196,7 +196,7 @@ function undo(){
  save();render();scheduleAI();
 }
 async function freshGame(){
- if(!state.over&&!await GameDialog.confirm("Να ξεκινήσει νέα παρτίδα; Η τρέχουσα θα αντικατασταθεί."))return;
+ if(!state.over&&state.history.length>0&&!await GameDialog.confirm("Να ξεκινήσει νέα παρτίδα; Η τρέχουσα θα αντικατασταθεί."))return;
  // Replacing a started CPU match is a forfeit. Pausing never changes stats.
  // A local two-player match has no individual loser when simply discarded.
  if(!state.over&&state.mode==="cpu"&&state.history.length>0)addResult("cpu","losses");
@@ -234,7 +234,19 @@ async function toggleFullscreen(){
 makeBoard();updateStatsView();render();save();
 $("pauseButton").addEventListener("click",()=>state.paused?resume():pauseGame());
 $("resumeButton").addEventListener("click",()=>state.over?freshGame():resume());
-$("newButton").addEventListener("click",()=>{pauseGame();freshGame()});
+function readChosenSettings(){
+ return validSettings({
+  mode:document.querySelector('input[name="mode"]:checked')?.value,
+  difficulty:document.querySelector('input[name="difficulty"]:checked')?.value,
+  showHints:$("showHints").checked
+ });
+}
+$("newButton").addEventListener("click",async()=>{
+ settings=readChosenSettings();
+ store(SETTINGS_KEY,settings);
+ closeSettings();
+ await freshGame();
+});
 $("undoButton").addEventListener("click",undo);
 $("settingsButton").addEventListener("click",showSettings);
 $("fullscreenButton").addEventListener("click",toggleFullscreen);
@@ -247,9 +259,7 @@ document.querySelectorAll('input[name="mode"]').forEach(el=>el.addEventListener(
 }));
 $("settingsForm").addEventListener("submit",event=>{
  event.preventDefault();
- settings=validSettings({mode:document.querySelector('input[name="mode"]:checked')?.value,
-  difficulty:document.querySelector('input[name="difficulty"]:checked')?.value,
-  showHints:$("showHints").checked});
+ settings=readChosenSettings();
  store(SETTINGS_KEY,settings);closeSettings();render();
  toast("Οι ρυθμίσεις αποθηκεύτηκαν για την επόμενη παρτίδα.");
 });
