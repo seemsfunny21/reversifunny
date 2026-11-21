@@ -1,7 +1,7 @@
 /* ReversiFunny isolated cache — never touches other installed game data. */
-const PREFIX="reversifunny-shell-",CACHE=PREFIX+"v7-banner-alignment";
-const FILES=["./","./index.html","./style.css?v=6","./engine.js?v=1",
- "./app.js?v=4","./hero-banner.svg","./icon.svg","./manifest.webmanifest"];
+const PREFIX="reversifunny-shell-",CACHE=PREFIX+"v8-settings-new-game";
+const FILES=["./","./index.html","./style.css?v=7","./engine.js?v=1",
+ "./app.js?v=5","./hero-banner.svg","./icon.svg","./manifest.webmanifest"];
 self.addEventListener("install",event=>
  event.waitUntil(caches.open(CACHE).then(c=>c.addAll(FILES)).then(()=>self.skipWaiting())));
 self.addEventListener("activate",event=>
