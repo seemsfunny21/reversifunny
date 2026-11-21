@@ -41,14 +41,15 @@ const {chromium}=require('playwright');
    const g=JSON.parse(localStorage.getItem('reversifunny.game.v1'));
    return g?.history?.length>=2&&g.turn===1;
   },null,{timeout:15000});
-  page.once('dialog',d=>d.accept());
+  await page.locator('#settingsButton').click();
   await page.locator('#newButton').click();
+  await page.locator('#gameDialogCover .game-dialog-btn.primary').click();
   let stats=await read();
   assert.equal(stats.cpu.losses,1,'Confirmed replacement of a started CPU game is a forfeit');
   assert.equal(stats.cpu.wins,0);
   await page.reload({waitUntil:'domcontentloaded'});
   assert.equal((await read()).cpu.losses,1,'Reloading cannot recount forfeit');
-  page.once('dialog',d=>d.accept());
+  await page.locator('#settingsButton').click();
   await page.locator('#newButton').click();
   assert.equal((await read()).cpu.losses,1,'Replacing untouched game cannot count loss');
 
