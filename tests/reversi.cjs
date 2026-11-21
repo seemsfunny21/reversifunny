@@ -47,8 +47,14 @@ assert.ok(html.includes('id="cpuWins"')&&html.includes('id="cpuLosses"')&&html.i
 assert.ok(app.includes('reversifunny.stats.v1')&&app.includes('recordFinishedGame()')&&app.includes('addResult("cpu","losses")'),'Terminal results and CPU forfeits recorded');
 assert.ok(app.includes('reversifunny:visibility')&&app.includes('pagehide')&&app.includes('visibilitychange'));
 assert.ok(app.includes('reversifunny.game.v1')&&app.includes('localStorage.setItem'));
-assert.ok(html.includes('app.js?v=3')&&sw.includes('app.js?v=3'));
-assert.ok(html.includes('style.css?v=5')&&sw.includes('style.css?v=5'));
+assert.ok(html.includes('app.js?v=5')&&sw.includes('app.js?v=5'));
+assert.ok(html.includes('style.css?v=7')&&sw.includes('style.css?v=7'));
+assert.ok(html.indexOf('id="newButton"')>html.indexOf('id="settingsForm"'),
+ 'New game action has moved inside Reversi settings');
+assert.ok(!html.slice(html.indexOf('<div class="tool-row">'),html.indexOf('<div class="fullscreen-row">')).includes('id="newButton"'),
+ 'No new game action below the Reversi board');
+assert.ok(app.includes('readChosenSettings()')&&app.includes('closeSettings();'),
+ 'New game uses chosen settings before start');
 assert.ok(root('style.css').includes('@media (min-width:960px)'),'Desktop layout must not alter mobile');
 assert.ok(html.includes('id="fullscreenButton"')&&app.includes('requestFullscreen'),'Native fullscreen button must be wired');
 assert.ok(root('style.css').includes('html:fullscreen .hero{display:none}'),'Full screen hides banner');
