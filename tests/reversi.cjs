@@ -48,7 +48,7 @@ assert.ok(app.includes('reversifunny.stats.v1')&&app.includes('recordFinishedGam
 assert.ok(app.includes('reversifunny:visibility')&&app.includes('pagehide')&&app.includes('visibilitychange'));
 assert.ok(app.includes('reversifunny.game.v1')&&app.includes('localStorage.setItem'));
 assert.ok(html.includes('app.js?v=5')&&sw.includes('app.js?v=5'));
-assert.ok(html.includes('style.css?v=7')&&sw.includes('style.css?v=7'));
+assert.ok(html.includes('style.css?v=8')&&sw.includes('style.css?v=8'));
 assert.ok(html.indexOf('id="newButton"')>html.indexOf('id="settingsForm"'),
  'New game action has moved inside Reversi settings');
 assert.ok(!html.slice(html.indexOf('<div class="tool-row">'),html.indexOf('<div class="fullscreen-row">')).includes('id="newButton"'),
