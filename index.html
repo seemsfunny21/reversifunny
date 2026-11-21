@@ -10,10 +10,10 @@
 <meta name="apple-mobile-web-app-title" content="ReversiFunny">
 <link rel="icon" type="image/svg+xml" href="./icon.svg">
 <link rel="manifest" href="./manifest.webmanifest">
-<link rel="stylesheet" href="./style.css?v=6">
+<link rel="stylesheet" href="./style.css?v=7">
 <title>ReversiFunny</title>
 <script src="./engine.js?v=1" defer></script>
-<script src="./app.js?v=4" defer></script>
+<script src="./app.js?v=5" defer></script>
 <style id="game-dialog-theme">
 .game-dialog-cover{position:fixed;inset:0;z-index:99999;display:flex;align-items:center;justify-content:center;padding:12px;background:#021426d9;backdrop-filter:blur(5px);-webkit-backdrop-filter:blur(5px)}
 .game-dialog-cover[hidden]{display:none!important}
@@ -109,7 +109,7 @@
 </div>
 <div class="tool-row">
  <button id="undoButton" class="btn tool-btn" type="button"><span aria-hidden="true">↶</span> Αναίρεση</button>
- <button id="newButton" class="btn main-btn" type="button"><span aria-hidden="true">＋</span> Νέα παρτίδα</button>
+ 
 </div>
 <div class="fullscreen-row">
  <button type="button" class="btn fullscreen-btn" id="fullscreenButton" aria-label="Πλήρης οθόνη" aria-pressed="false"><span aria-hidden="true">⛶</span> <span id="fullscreenLabel">Πλήρης οθόνη</span></button>
@@ -150,7 +150,8 @@
   </fieldset>
   <label class="setting-switch"><input id="showHints" type="checkbox"><span>Εμφάνιση διαθέσιμων κινήσεων</span></label>
   <p class="settings-help">Οι αλλαγές αντιπάλου και δυσκολίας ισχύουν στην <strong>επόμενη παρτίδα</strong>. Η τρέχουσα αποθηκεύεται και δεν χάνεται.</p>
-  <button class="btn main-btn save-settings" type="submit">Αποθήκευση ρυθμίσεων</button>
+  <button id="newButton" class="btn main-btn" type="button">↻ Νέα παρτίδα</button>
+  <button class="btn save-settings" type="submit">Αποθήκευση ρυθμίσεων</button>
  </form>
 </dialog>
 <div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
