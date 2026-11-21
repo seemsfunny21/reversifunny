@@ -65,7 +65,9 @@ const {chromium}=require('playwright');
   await page.locator('.save-settings').click();
   const still=await page.evaluate(()=>JSON.parse(localStorage.getItem('reversifunny.game.v1')));
   assert.equal(still.mode,'cpu','Settings cannot overwrite ongoing match');
-  page.once('dialog',dlg=>dlg.accept());
+  await page.locator('#settingsButton').click();
+  assert.equal(await page.locator('#settingsDialog').evaluate(d=>d.open),true,
+   'New Game is inside Settings');
   await page.locator('#newButton').click();
   const fresh=await page.evaluate(()=>JSON.parse(localStorage.getItem('reversifunny.game.v1')));
   assert.equal(fresh.mode,'local');
